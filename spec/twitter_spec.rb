@@ -3,16 +3,17 @@ require 'webmock/rspec'
 require 'oauth'
 require 'json'
 
-describe Twitter do
-  subject { Twitter.access_token }
-  describe '.access_token' do
-    let(:oauth_token) { '3380880963-CxLwiOUQ8W77HvVBfQP6WESJzBNKmCzJo8kConY' }
-    let(:oauth_token_secret) { 'VMEASXLc4YgeGjFheYDM4obHpqo0NQ72SB9uFIW7I0kAx' }
-    it 'oauth_token' do
-      expect(subject.token).to eq(oauth_token)
-    end
-    it 'oauth_token_secret' do
-      expect(subject.secret).to eq(oauth_token_secret)
+  describe Authentication do
+    subject { Authentication.access_token }
+    describe '.access_token' do
+      let(:oauth_token) ENV['ACCESS_TOKEN'],
+      let(:oauth_token_secret) ENV['ACCESS_TOKEN_SECRET']
+      it 'oauth_token' do
+        expect(subject.token).to eq(oauth_token)
+      end
+      it 'oauth_token_secret' do
+        expect(subject.secret).to eq(oauth_token_secret)
+      end
     end
   end
   describe '.trends' do
@@ -20,8 +21,8 @@ describe Twitter do
     let(:name) { '#example' }
     let(:trends) {
       [{ trends:
-         [{ name: name,
-           url: "http://twitter.com/search?=%23#{name}",
+         [{name:  name,
+           url:   "http://twitter.com/search?=%23#{name}",
            query: "%22#{name}%22" }] }]
     }
     before do

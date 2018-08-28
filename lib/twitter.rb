@@ -1,16 +1,19 @@
 require 'json'
 require 'oauth'
+require 'dotenv'
 
 module Twitter
-  def self.access_token
+    Dotenv.load('.env')
+
+    def self.access_token
     consumer = OAuth::Consumer.new(
-      'navHZwT1DyyYAYnekl4aHnmmA',
-      'ArN46dgf7uqNn3DpK7znTeA9dMQJBzDACmg0MQTsklaf7DRNnQ',
+        ENV['CONSUMER_KEY'],
+        ENV['CONSUMER_SECRET'],
       site: 'https://apps.twitter.com/app/'
     )
     hash = {
-      oauth_token: '3380880963-CxLwiOUQ8W77HvVBfQP6WESJzBNKmCzJo8kConY',
-      oauth_token_secret: 'VMEASXLc4YgeGjFheYDM4obHpqo0NQ72SB9uFIW7I0kAx'
+      oauth_token:  ENV['ACCESS_TOKEN'],
+      oauth_token_secret:  ENV['ACCESS_TOKEN_SECRET']
     }
     OAuth::AccessToken.from_hash(consumer, hash)
   end
@@ -20,7 +23,7 @@ module Twitter
       :get,
        'https://api.twitter.com/1.1/trends/place.json?id=23424768'
      ).body
-    response = JSON.parse(response).first['trends']
-    response.map { |trend| trend['name'] }
+     trends = JSON.parse(response).first['trends']
+     trends.map { |trend| trend['name'] }
   end
 end
