@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'rspec'
-gem 'oauth'
-gem 'rubocop'
-gem 'json'
-gem 'webmock'
 gem 'dotenv'
+gem 'json'
+gem 'oauth'
+gem 'rspec'
+gem 'rubocop'
+gem 'webmock'
