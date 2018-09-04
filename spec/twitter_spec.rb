@@ -59,7 +59,7 @@ describe Twitter do
         "https://api.twitter.com/1.1/search/tweets.json?q=%23#{hashtag}&count=10"
       ).to_return(body: JSON.generate(statuses))
     end
-    it 'example' do
+    it 'Return a correct array' do
       expect(subject).to eq([text])
     end
   end
