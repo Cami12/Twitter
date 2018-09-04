@@ -36,11 +36,12 @@ module Twitter
     statuses = JSON.parse(response)['statuses']
     statuses.map { |s| s['text'] }
   end
+  
   def self.user(user)
     response = access_token.request(
-     :get,
-     "https://api.twitter.com/1.1/users/show.json?screen_name=#{user}"
+      :get,
+      "https://api.twitter.com/1.1/users/show.json?screen_name=#{user}"
     ).body
-   statuses = JSON.parse(response) ['description']
+    statuses = JSON.parse(response) ['description']
   end
 end

@@ -63,4 +63,26 @@ describe Twitter do
       expect(subject).to eq([text])
     end
   end
+  describe '.search' do
+    subject { Twitter.user(user) }
+    let(:user) { 'example' }
+    let(:description) { 'hola' }
+    let(:body) do
+      {
+        id: '16542877',
+        id_str: '16542877',
+        name: 'example',
+        description: [description]
+      }
+    end
+    before do
+      stub_request(
+        :get,
+        "https://api.twitter.com/1.1/users/show.json?screen_name=#{user}"
+      ).to_return(body: JSON.generate(body))
+    end
+    it 'Return a correct array' do
+      expect(subject).to eq([description])
+    end
+  end
 end
