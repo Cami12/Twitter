@@ -44,6 +44,6 @@ module Twitter
       :get,
       "https://api.twitter.com/1.1/users/show.json?screen_name=#{user}"
     ).body
-    statuses = JSON.parse(response) ['description']
+    statuses = JSON.parse(response)['description']
   end
 end
