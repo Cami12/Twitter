@@ -2,9 +2,11 @@ require 'dotenv'
 require 'json'
 require 'oauth'
 
+Dotenv.load('./.env')
+
 module Twitter
-  Dotenv.load('.env')
   SITE = 'https://apps.twitter.com/app/'.freeze
+  URL_TRENDS = 'https://api.twitter.com/1.1/trends/place.json?id=23424768'.freeze
 
   def self.access_token
     consumer = OAuth::Consumer.new(
@@ -22,7 +24,7 @@ module Twitter
   def self.trends
     response = access_token.request(
       :get,
-      'https://api.twitter.com/1.1/trends/place.json?id=23424768'
+      URL_TRENDS
     ).body
     trends = JSON.parse(response).first['trends']
     trends.map { |trend| trend['name'] }
@@ -36,7 +38,7 @@ module Twitter
     statuses = JSON.parse(response)['statuses']
     statuses.map { |s| s['text'] }
   end
-  
+
   def self.user(user)
     response = access_token.request(
       :get,
